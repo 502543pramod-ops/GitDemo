@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photo Gallery - Your Photos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="material-icons">photo_camera</span>
+      <span class="name">PhotoGallery</span>
+      <span class="tagline">Turning Moments into Memories</span>
+    </div>
+    <nav class="menubar">
+      <a href="/"><span class="material-icons">home</span> Home</a>
+      <a href="gallery.html" class="active"><span class="material-icons">photo_library</span> Gallery</a>
+      <a href="/"><span class="material-icons">upload</span> Upload</a>
+      <a href="#"><span class="material-icons">contact_mail</span> Contact</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Menu</div>
+      <a href="/" class="item"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="/" class="item"><span class="material-icons">add_a_photo</span> Add Photos</a>
+      <a href="gallery.html" class="item active"><span class="material-icons">collections</span> My Gallery</a>
+      <a href="#" class="item"><span class="material-icons">settings</span> Settings</a>
+    </aside>
+
+    <main class="content">
+      <section class="card" id="gallery-section">
+        <div class="gallery-header">
+          <h2>Your Photo Gallery</h2>
+          <button id="refreshBtn"><span class="material-icons">refresh</span> Refresh</button>
+        </div>
+        <div id="gallery"></div>
+      </section>
+    </main>
+  </div>
+  
+  <button id="scrollTopBtn" title="Go to top"><span class="material-icons">arrow_upward</span></button>
+
+  <script src="js/gallery.js"></script>
+</body>
+</html>

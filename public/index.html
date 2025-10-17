@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PhotoGallery</title>
-  <link rel="stylesheet" href="/css/style.css" />
+  <title>PhotoGallery - Home</title>
+  <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+
   <header class="topbar">
     <div class="brand">
       <span class="material-icons">photo_camera</span>
@@ -15,9 +16,9 @@
       <span class="tagline">Turning Moments into Memories</span>
     </div>
     <nav class="menubar">
-      <a href="#"><span class="material-icons">home</span> Home</a>
-      <a href="#"><span class="material-icons">photo_library</span> Gallery</a>
-      <a href="#"><span class="material-icons">upload</span> Upload</a>
+      <a href="/" class="active"><span class="material-icons">home</span> Home</a>
+      <a href="gallery.html"><span class="material-icons">photo_library</span> Gallery</a>
+      <a href="/"><span class="material-icons">upload</span> Upload</a>
       <a href="#"><span class="material-icons">contact_mail</span> Contact</a>
     </nav>
   </header>
@@ -25,46 +26,48 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="sidebar-title">Menu</div>
-      <a class="item active"><span class="material-icons">dashboard</span> Dashboard</a>
-      <a class="item"><span class="material-icons">add_a_photo</span> Add Photos</a>
-      <a class="item"><span class="material-icons">collections</span> My Gallery</a>
-      <a class="item"><span class="material-icons">settings</span> Settings</a>
+      <a href="/" class="item active"><span class="material-icons">dashboard</span> Dashboard</a>
+      <a href="/" class="item"><span class="material-icons">add_a_photo</span> Add Photos</a>
+      <a href="gallery.html" class="item"><span class="material-icons">collections</span> My Gallery</a>
+      <a href="#" class="item"><span class="material-icons">settings</span> Settings</a>
     </aside>
 
     <main class="content">
-      <section class="card">
-        <div id="dropzone" class="dropzone" tabindex="0" aria-label="Upload photos area">
-          <div class="placeholder">
-            <span class="material-icons cloud">cloud_upload</span>
-            <p class="title">Click to select images or drag & drop here</p>
-            <p class="hint">JPEG, PNG, WEBP up to 10MB each</p>
-          </div>
-          <!-- Hidden file input (multiple) -->
-          <input id="fileInput" type="file" name="photos" accept="image/*" multiple />
+      <!-- Upload Section -->
+      <section class="card" id="upload-section">
+        <h2 style="margin-bottom: 20px; color: #1f2937;">Upload Your Photos</h2>
+        <div id="dropzone">
+          <span class="material-icons">upload_file</span>
+          <p>Click to select images or drag & drop here</p>
+          <p class="small">PNG, JPG, WEBP up to 10MB each</p>
+          <input type="file" id="fileInput" multiple hidden accept="image/png, image/jpeg, image/webp">
         </div>
-
-        <div id="preview" class="preview"></div>
-
-        <textarea id="description" class="desc" placeholder="Add a description for your photos..."></textarea>
-
-        <button id="uploadBtn" class="primary">Upload Photos</button>
-        <div id="status" class="status"></div>
+        <div id="preview"></div>
+        <input type="text" id="description" placeholder="Add a description for your photos...">
+        <button id="uploadBtn">Upload Photos</button>
+        <div id="status"></div>
       </section>
 
-      <section class="card">
-        <div class="section-header">
-          <h2><span class="material-icons">collections</span> Your Photo Gallery</h2>
-          <button id="refreshBtn" class="success">
-            <span class="material-icons">refresh</span> Refresh
-          </button>
+      <!-- Recent Photos Gallery Section -->
+      <section class="card" id="recent-gallery-section">
+        <div class="gallery-header">
+          <h2>Your Photo Gallery</h2>
+          <a href="gallery.html" class="view-all-btn">
+            <span class="material-icons">collections</span> View All Photos
+          </a>
         </div>
-        <div id="gallery" class="gallery-grid"></div>
+        <div id="recent-gallery">
+          <div style="text-align: center; padding: 40px; color: #666;">
+            <span class="material-icons" style="font-size: 48px; margin-bottom: 16px; display: block; color: #cbd5e1;">photo_library</span>
+            Loading your photos...
+          </div>
+        </div>
       </section>
     </main>
   </div>
+  
+  <button id="scrollTopBtn" title="Go to top"><span class="material-icons">arrow_upward</span></button>
 
-  <button id="scrollTop" class="scroll-top material-icons" aria-label="Scroll to top">arrow_upward</button>
-
-  <script src="/js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
