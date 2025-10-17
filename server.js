@@ -33,7 +33,7 @@ app.use('/uploads', express.static('uploads'));
 // --- UPDATED: /upload route to use filename as fallback description ---
 app.post('/upload', upload.array('photos', 12), (req, res) => {
   if (!req.files || req.files.length === 0) {
-    return res.status(400).send('No files were uploaded.');
+    return res.status(400).json({ success: false, message: 'No files were uploaded.' });
   }
 
   let metadata = {};
@@ -55,10 +55,41 @@ app.post('/upload', upload.array('photos', 12), (req, res) => {
 
   fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
 
-  res.send(`${req.files.length} file(s) uploaded successfully!`);
+  res.json({ success: true, message: `${req.files.length} file(s) uploaded successfully!` });
 });
 
-// The /api/images route remains the same as it correctly reads from metadata.json
+// --- ADDED: /gallery endpoint that gallery.js expects ---
+app.get('/gallery', (req, res) => {
+  fs.readdir(uploadsDir, (err, files) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: 'Unable to scan directory.' });
+    }
+
+    let metadata = {};
+    if (fs.existsSync(metadataPath)) {
+      metadata = JSON.parse(fs.readFileSync(metadataPath));
+    }
+
+    const imageDetails = files
+      .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
+      .map(file => {
+        const stats = fs.statSync(path.join(uploadsDir, file));
+        const description = metadata[file] || file.originalname || 'No description';
+        
+        return {
+          filename: file,
+          description: description,
+          timestamp: stats.mtime,
+          originalname: file // Fallback for original name
+        };
+      })
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    res.json(imageDetails);
+  });
+});
+
+// The /api/images route remains as backup
 app.get('/api/images', (req, res) => {
   fs.readdir(uploadsDir, (err, files) => {
     if (err) {
